@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:3000/querys/";
+const API_URL = "http://localhost:3000/querys";
 
 export default class QuerysService {
 	async getQuerys(userId) {
