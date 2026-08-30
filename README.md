@@ -9,18 +9,51 @@ Red social desarrollada con **Express** en el backend y **React** (migrado a Vit
 | Capa | Tecnologías |
 |------|-------------|
 | **Frontend** | React 18, Redux Toolkit 2, React Router 6, Bootstrap 5, Vite |
-| **Backend** | Express 4, MySQL2, JWT, bcrypt |
+| **Backend** | Express 5, JWT, bcrypt |
+| **Base de datos** | MySQL (`mysql2/promise`). Tablas: `users`, `posts`, `friends`, `courses`, `feedback`, `querys` |
 | **Tooling** | pnpm, GitHub Actions (audit + build), Node >= 24 |
 
 ## Requisitos previos
 
 - **Node.js** >= 24 (ver `.nvmrc`)
 - **pnpm** >= 10
-- **MySQL** (base de datos local)
+- **MySQL** 8 en local (XAMPP, WAMP, servicio de Windows o cliente + servidor). No se usa MongoDB.
+
+## Base de datos local
+
+El esquema y unos datos de prueba están en [`Backend/schema.sql`](Backend/schema.sql). Las credenciales se leen de `Backend/.env` (plantilla: [`Backend/.env.example`](Backend/.env.example)).
+
+1. Copia las variables de entorno:
+
+```bash
+cp Backend/.env.example Backend/.env
+```
+
+2. Ajusta `DB_USER` y `DB_PASSWORD` a tu MySQL local. El nombre de la base por defecto es `bd_equipo3`.
+
+3. Crea la base, las tablas y el seed (esto **borra** `bd_equipo3` si ya existía):
+
+```bash
+mysql -u root -p < Backend/schema.sql
+```
+
+También puedes pegar el contenido de `schema.sql` en MySQL Workbench o cualquier cliente y ejecutarlo.
+
+4. Usuarios de prueba (contraseña de todos: `Grupo3!!`):
+
+| Rol | Nickname | Email |
+|-----|----------|--------|
+| admin | `admin` | `admin@tecla.local` |
+| user | `lauram` | `laura.martinez@tecla.local` |
+| user | `carlosr` | `carlos.ruiz@tecla.local` |
+| user | `elenat` | `elena.torres@tecla.local` |
+| user | `miguels` | `miguel.sanchez@tecla.local` |
+
+La conexión está en `Backend/db/connection.js` (pool `mysql2/promise`). Si MySQL no está en marcha, el backend arranca igual y verás `Error de conexión con db` / `ECONNREFUSED 127.0.0.1:3306`.
 
 ## Instalación rápida
 
-Desde la raíz del proyecto:
+Desde la raíz del proyecto, **después** de tener MySQL y el `.env`:
 
 ```bash
 pnpm install        # instala dependencias de backend y frontend
@@ -139,7 +172,6 @@ Cambios realizados para eliminar las 52 vulnerabilidades de seguridad detectadas
 ## Posibles mejoras futuras
 
 - Migrar a React 19 + React Router 7
-- Migrar a Express 5
 - Añadir Vitest para testing del frontend
 - Implementar expiración de sesión (JWT con TTL)
 - Login con OAuth (Google)

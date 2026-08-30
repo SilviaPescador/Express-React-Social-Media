@@ -1,4 +1,17 @@
-# MANUAL DE LA API 
+# Backend — Express + MySQL
+
+API REST. La base de datos es **MySQL** (tablas relacionales, no MongoDB).
+
+- Esquema y seed: [`schema.sql`](schema.sql)
+- Variables: copiar [`.env.example`](.env.example) a `.env`
+- Arranque local: ver la sección **Base de datos local** del [README raíz](../README.md)
+
+```bash
+cp .env.example .env    # ajustar DB_USER / DB_PASSWORD
+mysql -u root -p < schema.sql
+```
+
+# MANUAL DE LA API
 
 Aquí se encuentran una relación de los endpoints creados para esta API:
 ◾ Autenticación
